@@ -20,8 +20,6 @@ RUN wget -O /tmp/ctffind.gz $CTFFIND_URL && tar xf /tmp/ctffind.gz -C /setup && 
 
 ENV CTFFIND_EXE=/setup/ctffind
 
-ADD setup/process.sh /setup
-
 WORKDIR /relion
 
 CMD bash /setup/process.sh

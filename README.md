@@ -1,17 +1,17 @@
-# relion docker
+# RELION pipeline
 
 ## Requirements
 
-- linux
 - docker
 - bash
 
-## Building image
+## Building
 
 - run: `./build.sh`
 
-## Using the pipeline
+## Using
 
-- copy movies to `./movies/<name>` (there should be *.tiff inside `<name>`)
+- copy dataset to `./input/<name>` (there should be images inside `<name>`)
+- create pipeline script in `scripts` named `<name>` using `relion_tutorial.sh` as a template
 - run: `./run.sh <name>`
-- outputs are in: `./output/<name>_<timestamp>`
+- outputs are in: `./output/<name>/<timestamp>`
