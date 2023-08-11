@@ -4,7 +4,7 @@ set -eu
 ln -s /movies movies
 
 mkdir Import
-relion_import  --do_movies  --optics_group_name "opticsGroup1" --angpix 1.096 --kV 200 --Cs 2.7 --Q0 0.1 \
+relion_import  --do_movies  --optics_group_name "opticsGroup1" --angpix 1.061 --kV 200 --Cs 2.7 --Q0 0.1 \
   --beamtilt_x 0 --beamtilt_y 0 --i "movies/*.mrc" --odir Import/ --ofile movies.star --continue \
   --pipeline_control Import/
 
