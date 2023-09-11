@@ -16,7 +16,7 @@
 - run: `./run.sh <name>`
 - outputs are in: `./output/<name>/<timestamp>`
 
-# Tips
+## Tips
 
 To use a separate hard drive for input and/or output use symlinks, for example:
 
