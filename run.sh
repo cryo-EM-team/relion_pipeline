@@ -9,4 +9,4 @@ fi
 
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 
-docker run --rm -it -v "$(pwd)/scripts/$1.sh:/setup/process.sh:ro" -v "$(pwd)/input/$1:/movies" -v "$(pwd)/output/$1/$TIMESTAMP:/relion" relion
+docker run --rm -it --gpus all -v "$(pwd)/scripts/$1.sh:/setup/process.sh:ro" -v "$(pwd)/input/$1:/movies" -v "$(pwd)/output/$1/$TIMESTAMP:/relion" relion bash
