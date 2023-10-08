@@ -11,7 +11,7 @@ WORKDIR /tmp/relion
 RUN git clone https://github.com/3dem/relion.git /tmp/relion && \
     git checkout master && \
     mkdir build && cd build && cmake -DCUDA=ON .. && \
-    cd build && make -j$(nproc) && make install && \
+    make -j$(nproc) && make install && \
     rm -rf /tmp/relion
 
 ADD setup /setup
