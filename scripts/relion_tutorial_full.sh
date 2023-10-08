@@ -47,17 +47,17 @@ mkdir Select2
 relion_class_ranker --opt Class2D/_it025_optimiser.star --o Select2/ --auto_select --min_score 0.5 --python /opt/conda/envs/class_ranker/bin/python \
   --do_granularity_features
 
-# ## Re-training the TOPAZ neural network
+## Re-training the TOPAZ neural network
 mkdir TopazAutoPicking
 relion_autopick --i Select/_split1.star --odir TopazAutoPicking/ --particle_diameter 180 --topaz_nr_particles 300 \
   --topaz_train --gpu --topaz_train_parts Extract/particles.star --python /opt/conda/envs/topaz/bin/python
 
-# ## Pick all micrographs with the re-trained TOPAZ neural network
+## Pick all micrographs with the re-trained TOPAZ neural network
 mkdir TopazAutoPickingAll
 relion_autopick --i CtfFind/micrographs_ctf.star --odir TopazAutoPickingAll/ --particle_diameter 180 --topaz_nr_particles 300 \
   --topaz_extract --gpu --topaz_model TopazAutoPicking/model_epoch10.sav --python /opt/conda/envs/topaz/bin/python
 
-# ## Particle extraction
+## Particle extraction
 mkdir Extract2
 relion_preprocess --i CtfFind/micrographs_ctf.star --coord_list TopazAutoPickingAll/autopick.star --part_star Extract2/particles.star \
   --pick_star Extract2/extractpick.star --part_dir Extract2/ --extract --extract_size 256 --float16  --norm --bg_radius 100 \
