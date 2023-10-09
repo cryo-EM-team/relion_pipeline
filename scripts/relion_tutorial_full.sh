@@ -48,7 +48,7 @@ relion_refine --i Extract/particles.star --o Class2D/ --ctf --K 50 --tau2_fudge 
 
 ## Selecting good 2D classes for Topaz training
 mkdir Select2
-relion_class_ranker --opt Class2D/_it025_optimiser.star --o Select2/ --auto_select --min_score 0.05 --python /opt/conda/envs/class_ranker/bin/python \
+relion_class_ranker --opt Class2D/_it025_optimiser.star --o Select2/ --auto_select --min_score 0.5 --python /opt/conda/envs/class_ranker/bin/python \
   --do_granularity_features
 
 ## Re-training the TOPAZ neural network
@@ -81,6 +81,7 @@ relion_preprocess --i CtfFind/micrographs_ctf.star --coord_list TopazAutoPicking
 # De novo 3D model generation
 ## Running the job
 # mkdir InitialModel
-# relion_helix_inimodel2d --i Select3/particles.star --o InitialModel/ --iter 100 -K 1 --angpix 200 --step_angle D2 --sym  --mask_diameter  --j
+# relion_refine --i Select3/particles.star --o InitialModel/ ---denove_3dref -iter 100 -K 1 --flatten_solvent \
+#  --psi_step 15 --offset_step 2 --offset_range 6 --sym d2 --mask_diameter 200 --j $(nproc)
 
 rm movies # remove symlink
