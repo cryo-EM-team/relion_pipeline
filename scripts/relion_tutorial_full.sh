@@ -38,7 +38,7 @@ relion_autopick --i Select/micrographs_split1.star --odir LoGAutoPicking/ --j $(
 ## Particle extraction
 mkdir Extract
 relion_preprocess --i CtfFind/micrographs_ctf.star --coord_list LoGAutoPicking/autopick.star --part_star Extract/particles.star \
-  --pick_star Extract/extractpick.star --part_dir Extract/ --extract --extract_size 256 --float16 --norm --bg_radius 100 \
+  --pick_star Extract/extractpick.star --part_dir Extract/ --extract --extract_size 256 --float16 --norm --bg_radius 25 \
   --invert_contrast --scale 64
 
 ## 2D class averaging to select good particles
@@ -64,7 +64,7 @@ relion_autopick --i CtfFind/micrographs_ctf.star --odir TopazAutoPickingAll/ --p
 ## Particle extraction
 mkdir Extract2
 relion_preprocess --i CtfFind/micrographs_ctf.star --coord_list TopazAutoPickingAll/autopick.star --part_star Extract2/particles.star \
-  --pick_star Extract2/extractpick.star --part_dir Extract2/ --extract --extract_size 256 --float16  --norm --bg_radius 100 \
+  --pick_star Extract2/extractpick.star --part_dir Extract2/ --extract --extract_size 256 --float16  --norm --bg_radius 25 \
   --invert_contrast --scale 64 --minimum_pick_fom -3
 
 # Reference-free 2D class averaging
@@ -77,5 +77,10 @@ relion_preprocess --i CtfFind/micrographs_ctf.star --coord_list TopazAutoPicking
 # mkdir Select3
 # relion_class_ranker --opt Class2D_2/_it100_optimiser.star --o Select3/ --auto_select --min_score 0.25 \
 #  --python /opt/conda/envs/class_ranker/bin/python --do_granularity_features
+
+# De novo 3D model generation
+## Running the job
+# mkdir InitialModel
+# relion_helix_inimodel2d --i Select3/particles.star --o InitialModel/ --iter 100 -K 1 --angpix 200 --step_angle D2 --sym  --mask_diameter  --j
 
 rm movies # remove symlink
