@@ -53,7 +53,7 @@ relion_class_ranker --opt Class2D/_it025_optimiser.star --o Select2/ --auto_sele
 
 ## Re-training the TOPAZ neural network
 mkdir TopazAutoPicking
-relion_autopick --i Select/_split1.star --odir TopazAutoPicking/ --particle_diameter 180 --topaz_nr_particles 300 \
+relion_autopick --i Select/micrographs_split1.star --odir TopazAutoPicking/ --particle_diameter 180 --topaz_nr_particles 300 \
   --topaz_train --gpu --topaz_train_parts Select2/particles.star --topaz_exe /setup/topaz.sh
 
 ## Pick all micrographs with the re-trained TOPAZ neural network
