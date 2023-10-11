@@ -48,7 +48,7 @@ relion_refine --i Extract/particles.star --o Class2D/ --ctf --K 50 --tau2_fudge 
 
 ## Selecting good 2D classes for Topaz training
 mkdir Select2
-relion_class_ranker --opt Class2D/_it025_optimiser.star --o Select2/ --auto_select --min_score 0.5 --python /opt/conda/envs/class_ranker/bin/python \
+relion_class_ranker --opt Class2D/_it025_optimiser.star --o Select2/ --auto_select --min_score 0.25 --python /opt/conda/envs/class_ranker/bin/python \
   --do_granularity_features
 
 ## Re-training the TOPAZ neural network
