@@ -1,7 +1,15 @@
-FROM continuumio/miniconda3
+FROM nvidia/cuda:12.2.2-runtime-ubuntu22.04
 
-RUN apt-get update && apt-get install -y cmake git build-essential mpi-default-bin mpi-default-dev libfftw3-dev libtiff-dev libpng-dev ghostscript libxft-dev && \
+RUN apt-get update && apt-get install -y cmake git wget build-essential mpi-default-bin mpi-default-dev libfftw3-dev libtiff-dev libpng-dev ghostscript libxft-dev && \
     rm -rf /var/lib/apt/lists/*
+
+ENV PATH="/root/miniconda3/bin:$PATH"
+RUN wget \
+    https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+    && mkdir /root/.conda \
+    && bash Miniconda3-latest-Linux-x86_64.sh -b \
+    && rm -f Miniconda3-latest-Linux-x86_64.sh \
+    && conda init
 
 RUN conda create -y --name topaz topaz pytorch-cuda=11.7 cudatoolkit -c tbepler -c pytorch -c nvidia && \
     conda create -y --name class_ranker python=3.9 pytorch=1.10 numpy=1.20 pytorch-cuda=11.7 cudatoolkit -c tbepler -c pytorch -c nvidia && \
