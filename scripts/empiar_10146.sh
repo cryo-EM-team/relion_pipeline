@@ -3,10 +3,12 @@
 set -eu
 ln -s /movies movies
 
+ls ./movies
+
 echo "Importing"
 mkdir Import
-relion_import  --do_movies  --optics_group_name "opticsGroup1" --angpix 0.66 --kV 300 --Cs 2.7 --Q0 0.1 \
-  --beamtilt_x 0 --beamtilt_y 0 --i "movies/*.frames.mrc" --odir Import/ --ofile movies.star --continue \
+relion_import  --do_movies  --optics_group_name "opticsGroup1" --angpix 1.5 --kV 300 --Cs 2.7 --Q0 0.1 \
+  --beamtilt_x 0 --beamtilt_y 0 --i "movies/*" --odir Import/ --ofile movies.star --continue \
   --pipeline_control Import/
 
 echo "Estimating Gain"
@@ -14,9 +16,9 @@ relion_estimate_gain  --i Import/movies.star --o gain.mrc --j $(nproc) --max_fra
 
 echo "Calculating Motion Correlation"
 mkdir MotionCorr
-relion_run_motioncorr_mpi --i Import/movies.star --o MotionCorr/ --first_frame_sum 1 \
-  --last_frame_sum -1 --use_own  --j $(nproc) --bin_factor 1 --bfactor 150 --dose_per_frame 1.3947 --preexposure 0 \
-  --patch_x 1 --patch_y 1 --eer_grouping 32 --gainref gain.mrc --gain_rot 0 --gain_flip 0 \
+relion_run_motioncorr --i Import/movies.star --o MotionCorr/ --first_frame_sum 1 \
+  --last_frame_sum -1 --use_own --j $(nproc) --bin_factor 1 --bfactor 150 --dose_per_frame 2.0 --preexposure 0 \
+  --patch_x 1 --patch_y 1 --eer_grouping 50 --gainref gain.mrc --gain_rot 0 --gain_flip 0 \
   --dose_weighting  --only_do_unfinished   --pipeline_control MotionCorr/
 
 echo "Calculating CtfFind"

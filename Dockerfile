@@ -22,8 +22,12 @@ RUN git clone https://github.com/3dem/relion.git /tmp/relion && \
     make -j$(nproc) && make install && \
     rm -rf /tmp/relion
 
+RUN pip install numpy mrcfile pandas tqdm
+
 ADD setup /setup
+ADD processing /processing
 ENV CTFFIND_EXE=/setup/ctffind
+ENV MOTIONCOR2_EXE=/setup/motioncor
 
 WORKDIR /relion
 CMD bash /setup/process.sh
