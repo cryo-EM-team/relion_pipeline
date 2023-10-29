@@ -56,8 +56,8 @@ def cut_particles(source: str, target: str, coordinates: str, diameter: int):
                 with mrcfile.open(micrograph_path) as mrc_source:
                     xlimit = mrc_source.data.shape[0]
                     ylimit = mrc_source.data.shape[1]
-                    if minx > 0 and miny > 0 and maxx < xlimit and maxy < ylimit:
-                        cut = mrc_source.data[minx:maxx, miny:maxy]
+                    if minx >= 0 and miny >= 0 and maxx < xlimit and maxy < ylimit:
+                        cut = mrc_source.data[miny:maxy, minx:maxx]
                         with mrcfile.new(os.path.join(target, f'{str(idx)}_{fix}.mrc')) as mrc_target:
                             mrc_target.set_data(cut)
 

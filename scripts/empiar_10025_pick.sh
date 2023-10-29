@@ -18,6 +18,6 @@ python3 /processing/split_odd_even.py -s movies -t OddEven -f True -d movies/dar
 
 echo "Cutting particles"
 mkdir CutOut
-python3 /processing/cut_particles.py -s OddEven -t CutOut -c movies/run1_shiny_mp007_data_dotstar.txt -d 128
+python3 /processing/cut_particles.py -s OddEven -t CutOut -c movies/run1_shiny_mp007_data_dotstar.txt -d 448
 
 rm movies # remove symlink

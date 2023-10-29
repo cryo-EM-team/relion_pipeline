@@ -7,7 +7,6 @@ from tqdm import tqdm
 
 def motion_correct_file(source_path: str, tmp_path: str, gain_path: str, dark_path: str):
     os.system(f"$MOTIONCOR2_EXE -InMrc {source_path} -OutMrc {tmp_path} -Patch 5 5 -Gpu 0 -Gain {gain_path} -Dark {dark_path} -Iter 10 -OutStack 1")
-    return tmp_path
 
 
 def split_files(source: str, target: str, save_full: bool, gain_path: str, dark_path: str):
@@ -46,4 +45,4 @@ if __name__ == '__main__':
                         help="MRC file that stores the gain reference")
     args = parser.parse_args()
 
-    split_files(args.source, args.target, args.save_full, args.dark, args.gain)
+    split_files(args.source, args.target, args.save_full, args.gain, args.dark)
