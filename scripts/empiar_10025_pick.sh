@@ -14,10 +14,10 @@ relion_estimate_gain  --i Import/movies.star --o gain.mrc --j $(nproc) --max_fra
 
 echo "MotionCor2 Motion Correction and Splitting on Odd and Even"
 mkdir OddEven
-python3 /processing/split_odd_even.py -s movies -t OddEven -f True -d movies/dark-amibox05-0.mrc -g gain.mrc
+python3 /processing/split_odd_even.py -s movies -t OddEven -f True -k False -d movies/dark-amibox05-0.mrc -g gain.mrc
 
 echo "Cutting particles"
 mkdir CutOut
-python3 /processing/cut_particles.py -s OddEven -t CutOut -c movies/run1_shiny_mp007_data_dotstar.txt -d 448
+python3 /processing/cut_particles.py -s OddEven -t CutOut -c movies/run1_shiny_mp007_data_dotstar.txt -d 128 -p $(nproc)
 
 rm movies # remove symlink
