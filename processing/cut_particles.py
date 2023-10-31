@@ -48,6 +48,9 @@ def cut_particles(df: pd.DataFrame, source: str, target: str, diameter: int, sta
     for file in tqdm(files):
         file_df = df[df['_rlnMicrographName'] == file]
         micrograph_core_name = file.split('/')[1].split('_st_movie.')[0]
+        sub_dir = os.path.join(target, micrograph_core_name)
+        if not os.path.exists(sub_dir):
+            os.mkdir(sub_dir)
         for fix in NAME_POST_FIXES:
             micrograph_name = f"{micrograph_core_name}_{fix}.mrc"
             micrograph_path = os.path.join(source, micrograph_name)
@@ -64,7 +67,7 @@ def cut_particles(df: pd.DataFrame, source: str, target: str, diameter: int, sta
                         if minx >= 0 and miny >= 0 and maxx < xlimit and maxy < ylimit:
                             cut = img[miny:maxy, minx:maxx]
                             with mrcfile.new(
-                                    os.path.join(target, f'{str(int(idx) + start_idx)}_{fix}.mrc')) as mrc_target:
+                                    os.path.join(sub_dir, f'{str(int(idx) + start_idx)}_{fix}.mrc')) as mrc_target:
                                 mrc_target.set_data(cut)
 
 
