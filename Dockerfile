@@ -13,6 +13,7 @@ RUN wget \
 
 RUN conda create -y --name topaz topaz pytorch-cuda=11.7 cudatoolkit -c tbepler -c pytorch -c nvidia && \
     conda create -y --name class_ranker python=3.9 pytorch=1.10 numpy=1.20 pytorch-cuda=11.7 cudatoolkit -c tbepler -c pytorch -c nvidia && \
+    conda create -y --name particle_cut numpy mrcfile pandas tqdm -c conda-forge && \
     conda clean -ya
 
 WORKDIR /tmp/relion
@@ -21,8 +22,6 @@ RUN git clone https://github.com/3dem/relion.git /tmp/relion && \
     mkdir build && cd build && cmake -DCUDA=ON .. && \
     make -j$(nproc) && make install && \
     rm -rf /tmp/relion
-
-RUN pip install numpy mrcfile pandas tqdm
 
 ADD setup /setup
 ADD processing /processing

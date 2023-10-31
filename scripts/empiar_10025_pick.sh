@@ -3,6 +3,8 @@
 set -eu
 ln -s /movies movies
 
+conda activate particle_cut
+
 echo "Importing"
 mkdir Import
 relion_import  --do_movies  --optics_group_name "opticsGroup1" --angpix 0.66 --kV 300 --Cs 2.7 --Q0 0.1 \
