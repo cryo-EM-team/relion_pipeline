@@ -3,6 +3,7 @@
 set -eu
 ln -s /movies movies
 
+source /root/miniconda3/etc/profile.d/conda.sh
 conda activate particle_cut
 
 echo "Importing"
@@ -23,3 +24,4 @@ mkdir CutOut
 python3 /processing/cut_particles.py -s OddEven -t CutOut -c movies/run1_shiny_mp007_data_dotstar.txt -d 128 -p $(nproc)
 
 rm movies # remove symlink
+source deactivate
