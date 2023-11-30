@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker build -t relion .
+docker build --progress=plain -t relion .

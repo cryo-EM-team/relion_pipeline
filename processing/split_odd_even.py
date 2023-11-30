@@ -14,7 +14,7 @@ from tqdm import tqdm
 
 def motion_correct_file(source_path: str, tmp_path: str, gain_path: str, dark_path: str):
     os.system(f"$MOTIONCOR2_EXE -InMrc \"{source_path}\" -OutMrc \"{tmp_path}\" -Patch 5 5 -Gpu 0 -Gain \"{gain_path}\""
-              f" -Dark \"{dark_path}\" -Iter 10 -OutStack 1")
+              f" -Dark \"{dark_path}\" -Iter 10 -OutStack 1 -OutStar 1")
 
 
 def split_avg_frames(files_to_avg: list[tuple[str, str]], save_full: bool, save_stack: bool):
@@ -28,8 +28,6 @@ def split_avg_frames(files_to_avg: list[tuple[str, str]], save_full: bool, save_
                 mrc_target.set_data(np.mean(mrc_source.data[1::2], axis=0))
         if not save_full:
             os.remove(out_path)
-        print(save_stack)
-        print(out_stk_path)
         if not save_stack:
             os.remove(out_stk_path)
 

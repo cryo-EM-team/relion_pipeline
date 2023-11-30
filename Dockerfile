@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.2.2-runtime-ubuntu22.04
+FROM nvidia/cuda:12.2.2-devel-ubuntu22.04
 
 RUN apt-get update && apt-get install -y cmake git wget build-essential mpi-default-bin mpi-default-dev libfftw3-dev libtiff-dev libpng-dev ghostscript libxft-dev && \
     rm -rf /var/lib/apt/lists/*
@@ -11,7 +11,7 @@ RUN wget \
     && rm -f Miniconda3-latest-Linux-x86_64.sh \
     && conda init
 
-RUN conda create -y --name topaz topaz pytorch-cuda=11.7 cudatoolkit -c tbepler -c pytorch -c nvidia && \
+RUN conda create -y --name topaz topaz pytorch==1.7.1 torchvision==0.8.2 torchaudio==0.7.2 cudatoolkit=11.0 fsspec -c tbepler -c pytorch -c nvidia -c conda-forge && \
     conda create -y --name class_ranker python=3.9 pytorch=1.10 numpy=1.20 pytorch-cuda=11.7 cudatoolkit -c tbepler -c pytorch -c nvidia && \
     conda create -y --name particle_cut numpy mrcfile pandas tqdm -c conda-forge && \
     conda clean -ya
